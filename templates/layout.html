@@ -3,7 +3,7 @@
     <head>
         <title>{% block title %}{% endblock %}</title>
         <meta charset="utf-8">
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='../assets/style.css') }}">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
     </head>
     <body>
@@ -11,10 +11,12 @@
             <ul>
                 <a href="{{ url_for('home') }}">Home</a>
                 <a href="{{ url_for('projects') }}">Projects</a>
+                <a href="{{ url_for('achievements') }}">Achievements</a>
                 <a href="{{ url_for('contact') }}">Contact Me</a>
             </ul>
         </nav>
-        {% block content %}{% endblock %}
+        <main> {% block content %}{% endblock %}
+        </main>
     </body>
     <footer>
         <p>&copy; 2026 Oliver Massaad</p>

@@ -4,4 +4,27 @@
 
 {% block content %}
 
+<h1>Achievements</h1>
+{% for achievement in achievements %}
+    <div>
+        <hr>
+        <p>{{ achievement.date }}</p>
+        {% if achievement.done == False %}
+            <p>Coming Up</p>
+        {% endif %}
+        {% if achievement.victory == True %}
+            <p>Winner</p>
+        {% endif %}
+        {% if achievement.victory == False %}
+            <p>Participant</p>
+        {% endif %}
+
+        <h2>{{ achievement.id }}</h2>
+        <p>{{ achievement.description }}</p>
+        <p>Participants: {{ achievement.participants }}</p>
+        <p>Teammates: {{ achievement.teammates }}</p>
+
+    </div>
+{% endfor %}
+
 {% endblock %}
