@@ -1,30 +1,36 @@
 {% extends "layout.html" %}
 
-{% block title %}Achievements - Oliver Massaad{% endblock %}
+{% block title %}Achievements — Oliver Massaad{% endblock %}
 
 {% block content %}
 
-<h1>Achievements</h1>
-{% for achievement in achievements %}
-    <div>
-        <hr>
-        <p>{{ achievement.date }}</p>
-        {% if achievement.done == False %}
-            <p>Coming Up</p>
-        {% endif %}
-        {% if achievement.victory == True %}
-            <p>Winner</p>
-        {% endif %}
-        {% if achievement.victory == False %}
-            <p>Participant</p>
-        {% endif %}
+<header class="page-header">
+    <h1>Awards & Certificates</h1>
+    <p>Winner of every hackathon attended.</p>
+</header>
 
+<div class="card-grid">
+    {% for achievement in achievements %}
+    <article class="card achievement-card">
+        <div class="top">
+            {% if achievement.victory == True %}
+            <span class="badge badge-winner">Winner</span>
+            {% elif achievement.victory == False %}
+            <span class="badge">Participant</span>
+            {% elif achievement.id == "Certificate in AI Accelerator Program" %}
+            <span class="badge badge-cert">Certificate</span>
+            {% endif %}
+            {% if achievement.date %}
+            <span class="meta">{{ achievement.date }}{% if achievement.participants %} · {{ achievement.participants }} participants{% endif %}</span>
+            {% endif %}
+        </div>
         <h2>{{ achievement.id }}</h2>
         <p>{{ achievement.description }}</p>
-        <p>Participants: {{ achievement.participants }}</p>
-        <p>Teammates: {{ achievement.teammates }}</p>
-
-    </div>
-{% endfor %}
+        {% if achievement.teammates %}
+        <p class="meta">Teammates: {{ achievement.teammates }}</p>
+        {% endif %}
+    </article>
+    {% endfor %}
+</div>
 
 {% endblock %}

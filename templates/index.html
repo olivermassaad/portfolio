@@ -1,19 +1,119 @@
 {% extends "layout.html" %}
 
-{% block title %}Home - Oliver Massaad{% endblock %}
+{% block title %}Home — Oliver Massaad{% endblock %}
 
 {% block content %}
 
-<div>
+<header class="hero-flat">
     <h1>Oliver Massaad</h1>
-    <p>Computer Science Student at Dawson College</p>
-</div>
-<div>
-    <h2>About me</h2>
-    <p>I'm a Computer Science Student in Dawson College</p>
-</div>
-<div>
-    <h2>My Achievements</h2>
+    <p class="tagline">Computer Science & Mathematics · Dawson College</p>
+    <div class="cta">
+        <a href="{{ url_for('projects') }}" class="btn btn-primary">View Projects</a>
+        <a href="{{ url_for('contact') }}" class="btn btn-secondary">Get in Touch</a>
+    </div>
+    <div class="meta-pills">
+        <span class="pill">Full-stack learner</span>
+        <span class="pill">AI builder</span>
+        <span class="pill">Open to opportunities</span>
+    </div>
+</header>
+
+<div class="home-grid">
+    <section class="section span-2 about-section">
+        <h2>About Me</h2>
+        <p class="long-animate">I am a disciplined and highly motivated computer science and mathematics student with a strong interest in technology-driven finance, and multilingual including native English and French. I thrive in fast-paced environments, work comfortably within agile methodologies, and adapt quickly to new tools and workflows. I have experience in both development and project coordination, and I enjoy working in teams while taking initiative and leading when needed. My goal is to contribute to a technology-focused financial firm that values innovation, speed, and impact.</p>
+    </section>
+
+    <section class="section highlights-panel">
+        <h2>Highlights</h2>
+        <div class="fact-grid">
+            <div class="fact-card">
+                <span class="fact-number">70+</span>
+                <span class="fact-label">Projects completed</span>
+            </div>
+            <div class="fact-card">
+                <span class="fact-number">4/4</span>
+                <span class="fact-label">Hackathons won</span>
+            </div>
+            <div class="fact-card">
+                <span class="fact-number">3+</span>
+                <span class="fact-label">Core programming languages</span>
+            </div>
+        </div>
+    </section>
+
+    <section class="section education-panel">
+        <h2>Education</h2>
+        <div class="mini-stack">
+            <article class="mini-card">
+                <span class="mini-year">2024–2026</span>
+                <h3>DEC Computer Science & Mathematics</h3>
+                <p>Dawson College · selective cohort (75 students)</p>
+            </article>
+            <article class="mini-card">
+                <span class="mini-year">2013–2024</span>
+                <h3>High School Diploma — Highest Honors</h3>
+                <p>Stanislas College, Outremont</p>
+            </article>
+        </div>
+    </section>
+
+    <section class="section span-2 experience-panel">
+        <h2>Experience</h2>
+        <div class="experience-grid">
+            <article class="experience-card">
+                <div class="experience-head">
+                    <h3>Innovation & Technology Intern</h3>
+                    <span>2023–2025</span>
+                </div>
+                <p class="where">SAJO (International General Contractor)</p>
+                <ul>
+                    <li>Collaborated with multidisciplinary teams on technology-driven projects.</li>
+                    <li>Lead speaker in client meetings and presentations.</li>
+                    <li>Supported problem solving and project delivery in fast-paced environments.</li>
+                </ul>
+            </article>
+            <article class="experience-card">
+                <div class="experience-head">
+                    <h3>Co-Founder & Developer</h3>
+                    <span>DCC</span>
+                </div>
+                <p class="where">Dawson Coding Club</p>
+                <ul>
+                    <li>Co-founded a student-led independent technical organization.</li>
+                    <li>Helped grow participation to 70+ interested members.</li>
+                </ul>
+            </article>
+        </div>
+    </section>
+
+    <section class="section volunteer-panel">
+        <h2>Volunteer</h2>
+        <div class="chip-list">
+            <span class="chip">Shine the Light on Woman Abuse</span>
+            <span class="chip">Violence Awareness Initiatives</span>
+            <span class="chip">RadioStan Host & Presenter</span>
+            <span class="chip">Guest Podcast Sessions</span>
+        </div>
+    </section>
+
+    <section class="section achievements-panel">
+        <h2>Awards</h2>
+        <div class="achievement-banner">Winner of every hackathon attended.</div>
+        <a href="{{ url_for('achievements') }}" class="btn btn-secondary">View Awards & Certificates</a>
+    </section>
+
+    <section class="section span-2 skill-cloud-panel">
+        <h2>Technical Skills</h2>
+        <div class="skill-cloud">
+            <span>Java</span><span>Python</span><span>JavaScript</span><span>React</span><span>HTML5</span><span>CSS3</span>
+            <span>Backend Development</span><span>Frontend Development</span><span>Full-Stack Development</span>
+            <span>Algorithms</span><span>Data Structures</span><span>Applied Mathematics</span>
+            <span>GitHub Copilot</span><span>Google AI Studio</span><span>Base44</span><span>Prompt Engineering</span>
+            <span>Data Analysis</span><span>Modern AI Models</span><span>Git</span><span>GitHub</span><span>Microsoft Excel</span>
+        </div>
+    </section>
+
 </div>
 
 {% endblock %}

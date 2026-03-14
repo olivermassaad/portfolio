@@ -1,26 +1,38 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <title>{% block title %}{% endblock %}</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="{{ url_for('static', filename='../assets/style.css') }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        {% block headscript %}{% endblock %}
-    </head>
-    <body>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Oliver Massaad — Computer Science & Mathematics student, tech-driven finance, full-stack development, AI projects.">
+    <meta name="theme-color" content="#0a0a0c">
+    <title>{% block title %}Oliver Massaad{% endblock %}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    {% block headscript %}{% endblock %}
+</head>
+<body>
+    <header class="nav-wrap">
         <nav>
-            <ul>
-                <a href="{{ url_for('home') }}">Home</a>
-                <a href="{{ url_for('projects') }}">Projects</a>
-                <a href="{{ url_for('achievements') }}">Achievements</a>
-                <a href="{{ url_for('contact') }}">Contact Me</a>
+            <a href="{{ url_for('home') }}" class="logo">Oliver Massaad</a>
+            <button class="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+                <span aria-hidden="true">☰</span>
+            </button>
+            <ul id="nav-menu">
+                <li><a href="{{ url_for('home') }}" {% if request.endpoint == 'home' %}class="active"{% endif %}>Home</a></li>
+                <li><a href="{{ url_for('projects') }}" {% if request.endpoint == 'projects' %}class="active"{% endif %}>Projects</a></li>
+                <li><a href="{{ url_for('achievements') }}" {% if request.endpoint == 'achievements' %}class="active"{% endif %}>Achievements</a></li>
+                <li><a href="{{ url_for('contact') }}" {% if request.endpoint == 'contact' %}class="active"{% endif %}>Contact</a></li>
             </ul>
         </nav>
-        <main> {% block content %}{% endblock %}
-        </main>
-    </body>
+    </header>
+    <main>
+        {% block content %}{% endblock %}
+    </main>
     <footer>
         <p>&copy; 2026 Oliver Massaad</p>
-        <a href="{{ url_for('contact') }}">Contact Me</a>
+        <a href="{{ url_for('contact') }}">Contact</a>
+        <a href="https://github.com/olivermassaad" target="_blank" rel="noopener">GitHub</a>
     </footer>
+    <script src="{{ url_for('static', filename='script.js') }}" defer></script>
+    {% block footscript %}{% endblock %}
+</body>
 </html>
