@@ -1,85 +1,439 @@
-from flask import Flask, render_template, request, redirect, url_for
+import os
+import smtplib
+from email.message import EmailMessage
+from email.utils import parseaddr
+
+from flask import Flask, abort, redirect, render_template, request, url_for
+
+
+def load_local_env(env_path=".env"):
+    """Load KEY=VALUE pairs from a local .env file if present."""
+    if not os.path.exists(env_path):
+        return
+
+    try:
+        with open(env_path, encoding="utf-8") as env_file:
+            for raw_line in env_file:
+                line = raw_line.strip()
+                if not line or line.startswith("#") or "=" not in line:
+                    continue
+
+                key, value = line.split("=", 1)
+                key = key.strip()
+                value = value.strip().strip('"').strip("'")
+                if key and key not in os.environ:
+                    os.environ[key] = value
+    except OSError:
+        # App still runs even if .env cannot be read.
+        pass
+
+
+load_local_env()
 
 app = Flask(__name__)
 
-@app.route('/')
+PROJECTS = [
+    {
+        "name": "Nebula Ecosystem",
+        "description": "Designed and developed multiple AI-powered daily-life applications, working across backend logic and frontend interfaces.",
+    },
+    {
+        "name": "Nook",
+        "description": "Built an AI-based productivity application from concept to implementation.",
+    },
+    {
+        "name": "Lazy Dawg",
+        "description": "Built a 24/7 YouTube radio station in 2023 with an animated pixel-art visual style, inspired by the always-on lofi format.",
+    },
+    {
+        "name": "LAB_01",
+        "description": "Worked on the LAB_01 game development team (2023-2024) as design manager and marketer; built eerie Half-Life-inspired environments in Twinmotion and helped produce a teaser.",
+    },
+    {
+        "name": "SAJO Miami Office VR Simulation",
+        "description": "Recreated SAJO's Miami office as a high-realism Twinmotion environment for VR walkthroughs (Oculus Quest 2), including custom textures, maps, and exterior reconstruction with Google Maps references and custom 3D models.",
+    },
+    {
+        "name": "SAJO Miami Office Prototype",
+        "description": "Delivered a first-pass Miami office simulation in Unity 3D before migrating the final experience to Twinmotion.",
+    },
+    {
+        "name": "SAJO Montreal Office VR Simulation",
+        "description": "Developed a full Twinmotion-based virtual office simulation for SAJO's Montreal office to support immersive stakeholder walkthroughs.",
+    },
+    {
+        "name": "Harden Laval Rooftop LiDAR + Matterport Scan",
+        "description": "Performed on-site rooftop capture work for Harden Laval using LiDAR and Matterport scanning workflows to support planning and modeling.",
+    },
+    {
+        "name": "AstraIPT",
+        "description": "Contributed to layout, logic, and backend architecture for AstraIPT, a website for SAJO's Technology and Innovation department.",
+    },
+    {
+        "name": "Maeve Catalog Roblox Campaign Assets",
+        "description": "Created 3D models, environments, and animations for ad-style Roblox content featuring characters wearing Maeve Catalog outfits.",
+    },
+    {
+        "name": "Forge",
+        "description": "Designed and developed a social platform concept focused on self-improvement content, goal tracking, workouts, and community accountability.",
+    },
+]
+
+ACHIEVEMENTS = [
+    {
+        "slug": "conuhacks-x-2026",
+        "title": "ConUHacks X",
+        "victory": True,
+        "status": "Winner",
+        "date": "2026",
+        "location": "Concordia University",
+        "team": "Jongmin, Tariq, Evan",
+        "description": "2nd place (Dialogue Challenge).",
+        "details": [
+            "Built and pitched a project for the Dialogue Challenge track.",
+            "Collaborated in a high-intensity environment with tight deadlines.",
+        ],
+    },
+    {
+        "slug": "athacks-2026",
+        "title": "@hacks",
+        "victory": True,
+        "status": "Winner",
+        "date": "2026",
+        "location": "Concordia University",
+        "team": "Jongmin, Omer, Sharifa",
+        "description": "3rd place (Beginner Stack).",
+        "details": [
+            "Delivered a complete beginner-stack submission from idea to demo.",
+            "Earned podium placement against 600+ participants.",
+        ],
+    },
+    {
+        "slug": "dialogue-2026",
+        "title": "Dialogue",
+        "victory": True,
+        "status": "Winner",
+        "date": "2026",
+        "location": "Dialogue HQ",
+        "team": "Skin-In-The-Game",
+        "description": "Award recipient.",
+        "details": [
+            "Presented a healthcare-focused concept to the judging panel.",
+            "Recognized for quality of execution and presentation.",
+        ],
+    },
+    {
+        "slug": "aerohacks-2026",
+        "title": "AeroHacks",
+        "victory": True,
+        "status": "Winner",
+        "date": "2026",
+        "location": "McGill University",
+        "team": "The Ganders",
+        "description": "Award recipient.",
+        "details": [
+            "Built an aviation-themed hackathon project with team collaboration.",
+            "Recognized for the final submission and demo quality.",
+        ],
+    },
+    {
+        "slug": "science-on-tourne-2025",
+        "title": "Science On Tourne!",
+        "victory": False,
+        "status": "Participant",
+        "date": "2025",
+        "location": "Montreal",
+        "team": "The SnapDragons",
+        "description": "Participated with a concept ranked 4th place.",
+        "details": [
+            "Competed as part of The SnapDragons team.",
+            "Concept received 4th place recognition.",
+        ],
+    },
+    {
+        "slug": "hackdecouverte-2025",
+        "title": "HackDecouverte",
+        "victory": True,
+        "status": "Winner",
+        "date": "2025",
+        "location": "Concordia University",
+        "team": "The Ganders",
+        "description": "Best Use of Gemini API.",
+        "details": [
+            "Won the API-specific category with a practical AI integration.",
+            "Built and delivered a polished hackathon demo.",
+        ],
+    },
+    {
+        "slug": "pinkeye-band-member-2025",
+        "title": "PinkEye (Former Band Member)",
+        "victory": None,
+        "status": "Member",
+        "date": "2025",
+        "location": "Montreal",
+        "team": "PinkEye",
+        "description": "Former member and keyboardist of the band.",
+        "details": [
+            "Contributed as the keyboardist during the band's active period.",
+            "No stage performance under this membership period.",
+        ],
+    },
+    {
+        "slug": "shine-the-light-volunteer",
+        "title": "Shine the Light on Woman Abuse",
+        "victory": False,
+        "status": "Volunteer",
+        "date": "2025",
+        "location": "Montreal",
+        "team": "",
+        "description": "Volunteer contributor in awareness-focused community initiatives.",
+        "details": [
+            "Supported public-awareness efforts and outreach activities.",
+            "Contributed to communication and event-level coordination.",
+        ],
+    },
+    {
+        "slug": "violence-awareness-initiatives",
+        "title": "Violence Awareness Initiatives",
+        "victory": False,
+        "status": "Volunteer",
+        "date": "2025",
+        "location": "Montreal",
+        "team": "",
+        "description": "Participated in violence-awareness and prevention initiatives.",
+        "details": [
+            "Assisted with awareness and educational activities.",
+            "Contributed to initiatives supporting safer communities.",
+        ],
+    },
+    {
+        "slug": "radiostan-host-presenter",
+        "title": "RadioStan Host, Presenter & Guest Podcast Speaker",
+        "victory": False,
+        "status": "Extracurricular",
+        "date": "2025",
+        "location": "Montreal",
+        "team": "RadioStan",
+        "description": "Hosted student radio segments and contributed as a guest podcast speaker.",
+        "details": [
+            "Led on-air segments and discussions.",
+            "Participated in guest podcast sessions as a speaker/collaborator.",
+            "Contributed perspectives on technology, learning, and student initiatives.",
+            "Developed communication and audience-facing presentation skills.",
+        ],
+    },
+    {
+        "slug": "lab-01-dev-team-2024",
+        "title": "LAB_01 Development Team",
+        "victory": False,
+        "status": "Participant",
+        "date": "2024",
+        "location": "Montreal",
+        "team": "LAB_01 Team",
+        "description": "Design manager and marketing contributor on the game development team.",
+        "details": [
+            "Built dark, eerie environments in Twinmotion inspired by Half-Life 2 aesthetics.",
+            "Contributed to teaser development and project storytelling.",
+        ],
+    },
+    {
+        "slug": "ai-accelerator-certificate",
+        "title": "AI Accelerator Program",
+        "victory": None,
+        "status": "Certificate",
+        "date": "2024",
+        "location": "Montreal",
+        "team": "",
+        "description": "Built an AI model from scratch to predict corporate bankruptcy risk.",
+        "details": [
+            "Completed the full AI accelerator curriculum.",
+            "Trained and evaluated a predictive model end-to-end.",
+        ],
+    },
+    {
+        "slug": "concours-castor-2022",
+        "title": "Concours Castor",
+        "victory": False,
+        "status": "Participant",
+        "date": "2022",
+        "location": "Montreal",
+        "team": "",
+        "description": "Participant in an international high school math and coding competition.",
+        "details": [
+            "Competed against international participants from multiple institutions.",
+        ],
+    },
+    {
+        "slug": "talent-show-certificate-2019",
+        "title": "Talent Show",
+        "victory": False,
+        "status": "Participant",
+        "date": "2019",
+        "location": "Montreal",
+        "team": "",
+        "description": "Certified participant in a school talent show event.",
+        "details": [
+            "Participated in a multi-performer showcase.",
+            "Received an official participation certificate.",
+        ],
+    },
+    {
+        "slug": "karate-certificate-2017",
+        "title": "Karate Certificate",
+        "victory": None,
+        "status": "Certificate",
+        "date": "2017",
+        "location": "Montreal",
+        "team": "",
+        "description": "Certified after 6 years of karate training.",
+        "details": [
+            "Completed six years of consistent practice and progression.",
+            "Earned formal karate certification.",
+        ],
+    },
+    {
+        "slug": "football-medal-2014",
+        "title": "Football Medal",
+        "victory": True,
+        "status": "Winner",
+        "date": "2014",
+        "location": "VMR-TMR",
+        "team": "",
+        "description": "Medal recipient in VMR-TMR football.",
+        "details": [
+            "Earned competitive recognition in the season.",
+        ],
+    },
+    {
+        "slug": "montreal-karate-tournament-2013",
+        "title": "Montreal City-Wide Karate Tournament",
+        "victory": False,
+        "status": "Participant",
+        "date": "2013",
+        "location": "Montreal",
+        "team": "",
+        "description": "Tournament participant.",
+        "details": [
+            "Competed in a city-wide martial arts event.",
+        ],
+    },
+    {
+        "slug": "football-medal-2013",
+        "title": "Football Medal",
+        "victory": True,
+        "status": "Winner",
+        "date": "2013",
+        "location": "VMR-TMR",
+        "team": "",
+        "description": "Medal recipient in VMR-TMR football.",
+        "details": [
+            "Earned competitive recognition in the season.",
+        ],
+    },
+    {
+        "slug": "football-medal-2012",
+        "title": "Football Medal",
+        "victory": True,
+        "status": "Winner",
+        "date": "2012",
+        "location": "VMR-TMR",
+        "team": "",
+        "description": "Medal recipient in VMR-TMR football.",
+        "details": [
+            "Earned competitive recognition in the season.",
+        ],
+    },
+    {
+        "slug": "best-reader-competition-2012",
+        "title": "Best Reader Competition",
+        "victory": True,
+        "status": "Winner",
+        "date": "2012",
+        "location": "National Library of Montreal",
+        "team": "",
+        "description": "Winner of a city-wide library reading competition.",
+        "details": [
+            "Recognized for top performance in a city-level reading competition.",
+        ],
+    },
+]
+
+
+@app.route("/")
 def home():
-    return render_template('index.html')
+    return render_template("index.html")
 
-@app.route('/projects')
+
+@app.route("/projects")
 def projects():
-    projects_list = [
-        {
-            "name": "Nebulae Ecosystem (with GitHub Copilot)",
-            "description": "Designed and developed multiple AI-powered daily-life applications. Worked across backend logic and frontend interfaces.",
-        },
-        {
-            "name": "Nook (AI Organizer Application)",
-            "description": "Built an AI-based productivity application from concept to implementation.",
-        },
-    ]
-    return render_template('projects.html', projects=projects_list)
+    return render_template("projects.html", projects=PROJECTS)
 
-@app.route('/achievements')
+
+@app.route("/achievements")
 def achievements():
-    achievements_list = [
-        {
-            "id": "ConUHacks X",
-            "victory": True,
-            "done": True,
-            "date": "2026",
-            "participants": "1150+",
-            "teammates": "",
-            "description": "2nd place",
-        },
-        {
-            "id": "@hacks",
-            "victory": True,
-            "done": True,
-            "date": "2026",
-            "participants": "600+",
-            "teammates": "",
-            "description": "3rd place (Beginner)",
-        },
-        {
-            "id": "HackDécouverte",
-            "victory": True,
-            "done": True,
-            "date": "2025",
-            "participants": "500+",
-            "teammates": "",
-            "description": "Gemini API award",
-        },
-        {
-            "id": "Dialogue",
-            "victory": True,
-            "done": True,
-            "date": "2026",
-            "participants": "40+",
-            "teammates": "",
-            "description": "Award",
-        },
-        {
-            "id": "Certificate in AI Accelerator Program",
-            "victory": None,
-            "done": True,
-            "date": "",
-            "participants": "",
-            "teammates": "",
-            "description": "Built an AI model from scratch to predict future corporate bankruptcy risk as part of an extracurricular program.",
-        },
-    ]
-    return render_template('achievements.html', achievements=achievements_list)
+    return render_template("achievements.html", achievements=ACHIEVEMENTS)
 
-@app.route('/contact')
+
+@app.route("/achievements/<slug>")
+def achievement_detail(slug):
+    achievement = next((item for item in ACHIEVEMENTS if item["slug"] == slug), None)
+    if achievement is None:
+        abort(404)
+    return render_template("achievement_detail.html", achievement=achievement)
+
+
+@app.route("/contact")
 def contact():
-    return render_template('contact.html')
+    return render_template("contact.html")
 
-@app.route('/contact/submit', methods=['POST'])
+
+@app.route("/contact/submit", methods=["POST"])
 def contact_submit():
-    # Optional: validate name, email, message here or send email via a service
-    _ = request.form.get('name'), request.form.get('email'), request.form.get('message')
-    return redirect(url_for('contact', sent=1))
+    name = (request.form.get("name") or "").strip()
+    email = (request.form.get("email") or "").strip()
+    message = (request.form.get("message") or "").strip()
 
-if __name__ == '__main__':
+    if not name or not email or not message:
+        return redirect(url_for("contact", sent=0, error="missing_fields"))
+
+    parsed_email = parseaddr(email)[1]
+    if "@" not in parsed_email:
+        return redirect(url_for("contact", sent=0, error="invalid_email"))
+
+    smtp_host = os.getenv("SMTP_HOST", "smtp.gmail.com")
+    smtp_port = int(os.getenv("SMTP_PORT", "465"))
+    smtp_username = os.getenv("SMTP_USERNAME")
+    smtp_password = os.getenv("SMTP_PASSWORD")
+    contact_to = os.getenv("CONTACT_TO_EMAIL", "olimasad@gmail.com")
+    from_email = os.getenv("CONTACT_FROM_EMAIL", smtp_username or "no-reply@example.com")
+
+    safe_name = name.replace("\r", " ").replace("\n", " ")
+    safe_email = parsed_email.replace("\r", "").replace("\n", "")
+
+    if not smtp_username or not smtp_password:
+        return redirect(url_for("contact", sent=0, error="smtp_not_configured"))
+
+    msg = EmailMessage()
+    msg["Subject"] = f"New portfolio message from {safe_name}"
+    msg["From"] = from_email
+    msg["To"] = contact_to
+    msg["Reply-To"] = safe_email
+    msg.set_content(
+        "New message from your portfolio contact form.\n\n"
+        f"Name: {safe_name}\n"
+        f"Email: {safe_email}\n\n"
+        f"Message:\n{message}\n"
+    )
+
+    try:
+        with smtplib.SMTP_SSL(smtp_host, smtp_port) as server:
+            server.login(smtp_username, smtp_password)
+            server.send_message(msg)
+    except Exception:
+        return redirect(url_for("contact", sent=0, error="send_failed"))
+
+    return redirect(url_for("contact", sent=1))
+
+
+if __name__ == "__main__":
     app.run(debug=True)

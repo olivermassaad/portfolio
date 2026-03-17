@@ -4,18 +4,21 @@
 
 {% block content %}
 
-<header class="page-header">
+<header class="page-header hero-flat">
     <h1>Projects</h1>
     <p>AI-powered and full-stack applications from concept to deployment.</p>
 </header>
 
-<div class="card-grid">
+<section class="gallery-grid projects-gallery">
     {% for project in projects %}
-    <article class="card">
+    <article class="card gallery-item project-item" data-reveal="bottom">
+        <div class="gallery-head">
+            <span class="badge">Project {{ loop.index }}</span>
+        </div>
         <h2>{{ project.name }}</h2>
         <p>{{ project.description }}</p>
     </article>
     {% endfor %}
-</div>
+</section>
 
 {% endblock %}

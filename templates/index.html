@@ -5,50 +5,67 @@
 {% block content %}
 
 <header class="hero-flat">
-    <h1>Oliver Massaad</h1>
-    <p class="tagline">Computer Science & Mathematics · Dawson College</p>
-    <div class="cta">
-        <a href="{{ url_for('projects') }}" class="btn btn-primary">View Projects</a>
-        <a href="{{ url_for('contact') }}" class="btn btn-secondary">Get in Touch</a>
+    <h1 class="hero-name intro-item intro-name" data-reveal="scale">
+        <span>Oliver</span>
+        <span>Massaad</span>
+    </h1>
+    <p class="hero-kicker intro-item" data-reveal="top">Montreal-based builder · CS + Math</p>
+    <p class="tagline intro-item" data-reveal="right">Designing useful products with strong code, clean UI, and fast iteration.</p>
+    <div class="cta intro-item" data-reveal="bottom">
+        <a href="{{ url_for('projects') }}" class="btn btn-primary btn-pill">View Projects</a>
+        <a href="{{ url_for('contact') }}" class="btn btn-secondary btn-pill">Get in Touch</a>
     </div>
-    <div class="meta-pills">
-        <span class="pill">Full-stack learner</span>
-        <span class="pill">AI builder</span>
-        <span class="pill">Open to opportunities</span>
+    <div class="meta-pills intro-item" data-reveal="left">
+        <span class="pill">Full-Stack Developer</span>
+        <span class="pill">Computer Science Student</span>
+        <span class="pill">Musician</span>
     </div>
+
 </header>
 
 <div class="home-grid">
-    <section class="section span-2 about-section">
+    <section class="section span-2 about-section" data-reveal="bottom">
         <h2>About Me</h2>
-        <p class="long-animate">I am a disciplined and highly motivated computer science and mathematics student with a strong interest in technology-driven finance, and multilingual including native English and French. I thrive in fast-paced environments, work comfortably within agile methodologies, and adapt quickly to new tools and workflows. I have experience in both development and project coordination, and I enjoy working in teams while taking initiative and leading when needed. My goal is to contribute to a technology-focused financial firm that values innovation, speed, and impact.</p>
+        <p class="long-animate">I am a computer science and mathematics student focused on building high-impact software with practical AI integration. I enjoy solving real problems end to end: planning, prototyping, shipping, and refining with user feedback. My background in development and coordination helps me move quickly while staying organized, especially in team settings where communication and ownership matter.</p>
     </section>
 
-    <section class="section highlights-panel">
-        <h2>Highlights</h2>
+    <section class="section highlights-panel about-section" data-reveal="left">
+        <h2>Profile</h2>
         <div class="fact-grid">
             <div class="fact-card">
-                <span class="fact-number">70+</span>
-                <span class="fact-label">Projects completed</span>
+                <span class="fact-number">Student</span>
+                <span class="fact-label">2nd Year SCSM Student @ Dawson College</span>
             </div>
             <div class="fact-card">
-                <span class="fact-number">4/4</span>
-                <span class="fact-label">Hackathons won</span>
+                <span class="fact-number">Developer</span>
+                <span class="fact-label">Full-Stack Developer & Software Engineer</span>
             </div>
             <div class="fact-card">
-                <span class="fact-number">3+</span>
-                <span class="fact-label">Core programming languages</span>
+                <span class="fact-number">Founder</span>
+                <span class="fact-label">Creator & Maintainer of Multiple Projects</span>
+            </div>
+            <div class="fact-card">
+                <span class="fact-number">Intern</span>
+                <span class="fact-label">2 years of experience at SAJO (on & off)</span>
+            </div>
+            <div class="fact-card">
+                <span class="fact-number">Co-Founder</span>
+                <span class="fact-label">of the Dawson Coding Club (independent)</span>
+            </div>
+            <div class="fact-card">
+                <span class="fact-number">Musician</span>
+                <span class="fact-label">Pianist & Composer for 13 Years</span>
             </div>
         </div>
     </section>
 
-    <section class="section education-panel">
+    <section class="section education-panel about-section" data-reveal="right">
         <h2>Education</h2>
         <div class="mini-stack">
             <article class="mini-card">
                 <span class="mini-year">2024–2026</span>
                 <h3>DEC Computer Science & Mathematics</h3>
-                <p>Dawson College · selective cohort (75 students)</p>
+                <p>Dawson College</p>
             </article>
             <article class="mini-card">
                 <span class="mini-year">2013–2024</span>
@@ -58,7 +75,7 @@
         </div>
     </section>
 
-    <section class="section span-2 experience-panel">
+    <section class="section span-2 experience-panel about-section" data-reveal="bottom">
         <h2>Experience</h2>
         <div class="experience-grid">
             <article class="experience-card">
@@ -68,9 +85,9 @@
                 </div>
                 <p class="where">SAJO (International General Contractor)</p>
                 <ul>
-                    <li>Collaborated with multidisciplinary teams on technology-driven projects.</li>
-                    <li>Lead speaker in client meetings and presentations.</li>
-                    <li>Supported problem solving and project delivery in fast-paced environments.</li>
+                    <li>Built VR-ready office simulations in Twinmotion for Miami and Montreal spaces.</li>
+                    <li>Performed LiDAR and Matterport scanning workflows for site capture projects.</li>
+                    <li>Contributed to AstraIPT website layout, logic, and backend architecture.</li>
                 </ul>
             </article>
             <article class="experience-card">
@@ -80,37 +97,59 @@
                 </div>
                 <p class="where">Dawson Coding Club</p>
                 <ul>
-                    <li>Co-founded a student-led independent technical organization.</li>
-                    <li>Helped grow participation to 70+ interested members.</li>
+                    <li>Co-founded and initiated a student-led technical independent organization (not affiliated with the DSU)</li>
+                    <li>Scaled participation to 70+ interested members</li>
                 </ul>
             </article>
         </div>
     </section>
 
-    <section class="section volunteer-panel">
-        <h2>Volunteer</h2>
-        <div class="chip-list">
-            <span class="chip">Shine the Light on Woman Abuse</span>
-            <span class="chip">Violence Awareness Initiatives</span>
-            <span class="chip">RadioStan Host & Presenter</span>
-            <span class="chip">Guest Podcast Sessions</span>
+    <section class="section volunteer-panel about-section" data-reveal="left">
+        <h2>Volunteer & extracurricular</h2>
+        <div class="award-mini-grid">
+            <article class="award-mini">
+                <span class="award-mini-title">Shine the Light on Woman Abuse</span>
+                <span class="award-mini-meta">Awareness campaign volunteer</span>
+            </article>
+            <article class="award-mini">
+                <span class="award-mini-title">RadioStan Host & Presenter</span>
+                <span class="award-mini-meta">Student radio broadcast</span>
+            </article>
+            <article class="award-mini">
+                <span class="award-mini-title">Guest Podcast Sessions</span>
+                <span class="award-mini-meta">Speaker & collaborator</span>
+            </article>
         </div>
+        <a href="{{ url_for('achievements') }}" class="btn btn-secondary btn-pill">View All Voluneer & Extracurricular</a>
     </section>
 
-    <section class="section achievements-panel">
-        <h2>Awards</h2>
-        <div class="achievement-banner">Winner of every hackathon attended.</div>
-        <a href="{{ url_for('achievements') }}" class="btn btn-secondary">View Awards & Certificates</a>
+    <section class="section achievements-panel about-section" data-reveal="right">
+        <h2>Awards & Certificates</h2>
+        <div class="award-mini-grid">
+            <article class="award-mini">
+                <span class="award-mini-title">ConUHacks X</span>
+                <span class="award-mini-meta">2026 · 2nd Place · 1150+ participants</span>
+            </article>
+            <article class="award-mini">
+                <span class="award-mini-title">@hacks</span>
+                <span class="award-mini-meta">2026 · 3rd Place (Beginner) · 600+ participants</span>
+            </article>
+            <article class="award-mini">
+                <span class="award-mini-title">HackDécouverte</span>
+                <span class="award-mini-meta">2025 · Gemini API Award · 500+ participants</span>
+            </article>
+        </div>
+        <a href="{{ url_for('achievements') }}" class="btn btn-secondary btn-pill">View All Awards & Certificates</a>
     </section>
 
-    <section class="section span-2 skill-cloud-panel">
+    <section class="section span-2 skill-cloud-panel about-section" data-reveal="bottom">
         <h2>Technical Skills</h2>
         <div class="skill-cloud">
             <span>Java</span><span>Python</span><span>JavaScript</span><span>React</span><span>HTML5</span><span>CSS3</span>
-            <span>Backend Development</span><span>Frontend Development</span><span>Full-Stack Development</span>
+            <span>Backend Development</span><span>Frontend Development</span><span>Unreal Engine</span><span>Twinmotion</span><span>Unity 3D</span>
             <span>Algorithms</span><span>Data Structures</span><span>Applied Mathematics</span>
-            <span>GitHub Copilot</span><span>Google AI Studio</span><span>Base44</span><span>Prompt Engineering</span>
-            <span>Data Analysis</span><span>Modern AI Models</span><span>Git</span><span>GitHub</span><span>Microsoft Excel</span>
+            <span>GitHub Copilot</span><span>Google AI Studio</span><span>Prompt Engineering</span><span>Matterport</span><span>LiDAR Scanning</span>
+            <span>VR Prototyping</span><span>3D Environment Design</span><span>Roblox Studio</span><span>Data Analysis</span><span>Modern AI Models</span><span>Git</span><span>Microsoft Excel</span>
         </div>
     </section>
 

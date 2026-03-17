@@ -1,0 +1,42 @@
+{% extends "layout.html" %}
+
+{% block title %}{{ achievement.title }} — Achievement{% endblock %}
+
+{% block content %}
+
+<header class="page-header hero-flat">
+    <h1>{{ achievement.title }}</h1>
+    <p>{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+</header>
+
+<section class="section span-2 achievement-detail-panel" data-reveal="bottom">
+    <div class="achievement-detail-top">
+        {% if achievement.victory == True %}
+        <span class="badge badge-winner">Winner</span>
+        {% elif achievement.victory == False %}
+        <span class="badge">Participant</span>
+        {% elif achievement.status == "Certificate" %}
+        <span class="badge badge-cert">Certificate</span>
+        {% else %}
+        <span class="badge">{{ achievement.status }}</span>
+        {% endif %}
+    </div>
+
+    <p class="achievement-detail-summary">{{ achievement.description }}</p>
+
+    {% if achievement.team %}
+    <p class="achievement-detail-meta"><strong>Team:</strong> {{ achievement.team }}</p>
+    {% endif %}
+
+    {% if achievement.details %}
+    <ul class="achievement-detail-list">
+        {% for item in achievement.details %}
+        <li>{{ item }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+
+    <a href="{{ url_for('achievements') }}" class="btn btn-secondary btn-pill">Back to Awards & Certificates</a>
+</section>
+
+{% endblock %}

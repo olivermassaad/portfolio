@@ -4,13 +4,18 @@
 
 {% block content %}
 
-<header class="page-header">
+<header class="page-header hero-flat">
     <h1>Contact</h1>
     <p>Get in touch for opportunities or collaboration.</p>
 </header>
 
-{% if request.args.get('sent') %}
+{% if request.args.get('sent') == '1' %}
 <div class="msg-success" role="alert">Thanks! Your message has been sent. I’ll get back to you soon.</div>
+{% endif %}
+{% if request.args.get('error') %}
+<div class="msg-error" role="alert">
+    Message could not be sent right now. Please email me directly at <a href="mailto:olimasad@gmail.com">olimasad@gmail.com</a>.
+</div>
 {% endif %}
 
 <div class="contact-layout">
@@ -20,8 +25,9 @@
         <p><strong>Email</strong> <a href="mailto:olimasad@gmail.com">olimasad@gmail.com</a></p>
         <p><strong>GitHub</strong> <a href="https://github.com/olivermassaad" target="_blank" rel="noopener">github.com/olivermassaad</a></p>
         <div class="contact-links contact-links-spaced">
-            <a href="https://github.com/olivermassaad" target="_blank" rel="noopener" class="btn btn-secondary">Open GitHub</a>
-            <a href="https://www.linkedin.com/in/oliver-massaad-9765a0276/?originalSubdomain=ca" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+            <a href="https://github.com/olivermassaad" target="_blank" rel="noopener" class="btn btn-secondary">GitHub</a>
+            <a href="https://www.linkedin.com/in/oliver-massaad-9765a0276/" target="_blank" rel="noopener" class="btn btn-secondary">LinkedIn</a>
+            <a href="https://www.instagram.com/oliver_massaad/" target="_blank" rel="noopener" class="btn btn-secondary">Instagram</a>
             <button type="button" class="btn btn-secondary" id="emailbutton">Copy Email</button>
         </div>
     </div>
