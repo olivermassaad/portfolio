@@ -14,40 +14,48 @@
         <h2>Winner</h2>
         <div class="track-list">
             {% for achievement in achievements if achievement.victory == True %}
-            <a class="achievement-link" href="{{ url_for('achievement_detail', slug=achievement.slug) }}">
-                <article class="card achievement-card winner-card" data-reveal="bottom">
-                    <div class="top"><span class="badge badge-winner">Winner</span></div>
-                    {% if achievement.date %}
-                    <p class="meta achievement-meta-line">{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+            <article class="card achievement-card winner-card" data-reveal="bottom">
+                <div class="top"><span class="badge badge-winner">Winner</span></div>
+                {% if achievement.date %}
+                <p class="meta achievement-meta-line">{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+                {% endif %}
+                <h2>{{ achievement.title }}</h2>
+                <p>{{ achievement.description }}</p>
+                {% if achievement.team %}
+                <p class="meta">Team: {{ achievement.team }}</p>
+                {% endif %}
+                <div class="achievement-actions">
+                    <a class="btn btn-secondary btn-pill achievement-btn" href="{{ url_for('achievement_detail', slug=achievement.slug) }}">View Details</a>
+                    {% if achievement.external_url %}
+                    <a class="btn btn-secondary btn-pill achievement-btn" href="{{ achievement.external_url }}" target="_blank" rel="noopener">Open Link</a>
                     {% endif %}
-                    <h2>{{ achievement.title }}</h2>
-                    <p>{{ achievement.description }}</p>
-                    {% if achievement.team %}
-                    <p class="meta">Team: {{ achievement.team }}</p>
-                    {% endif %}
-                </article>
-            </a>
+                </div>
+            </article>
             {% endfor %}
         </div>
     </section>
 
     <section class="achievement-track track-participants">
-        <h2>Participation</h2>
+        <h2>Experiences</h2>
         <div class="track-list">
             {% for achievement in achievements if achievement.victory == False or (achievement.victory != True and achievement.status != "Certificate") %}
-            <a class="achievement-link" href="{{ url_for('achievement_detail', slug=achievement.slug) }}">
-                <article class="card achievement-card participant-card" data-reveal="bottom">
-                    <div class="top"><span class="badge">{{ achievement.status or "Participant" }}</span></div>
-                    {% if achievement.date %}
-                    <p class="meta achievement-meta-line">{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+            <article class="card achievement-card participant-card" data-reveal="bottom">
+                <div class="top"><span class="badge">{{ achievement.status or "Participant" }}</span></div>
+                {% if achievement.date %}
+                <p class="meta achievement-meta-line">{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+                {% endif %}
+                <h2>{{ achievement.title }}</h2>
+                <p>{{ achievement.description }}</p>
+                {% if achievement.team %}
+                <p class="meta">Team: {{ achievement.team }}</p>
+                {% endif %}
+                <div class="achievement-actions">
+                    <a class="btn btn-secondary btn-pill achievement-btn" href="{{ url_for('achievement_detail', slug=achievement.slug) }}">View Details</a>
+                    {% if achievement.external_url %}
+                    <a class="btn btn-secondary btn-pill achievement-btn" href="{{ achievement.external_url }}" target="_blank" rel="noopener">Open Link</a>
                     {% endif %}
-                    <h2>{{ achievement.title }}</h2>
-                    <p>{{ achievement.description }}</p>
-                    {% if achievement.team %}
-                    <p class="meta">Team: {{ achievement.team }}</p>
-                    {% endif %}
-                </article>
-            </a>
+                </div>
+            </article>
             {% endfor %}
         </div>
     </section>
@@ -56,19 +64,23 @@
         <h2>Certificates</h2>
         <div class="track-list">
             {% for achievement in achievements if achievement.status == "Certificate" %}
-            <a class="achievement-link" href="{{ url_for('achievement_detail', slug=achievement.slug) }}">
-                <article class="card achievement-card certificate-card" data-reveal="bottom">
-                    <div class="top"><span class="badge badge-cert">Certificate</span></div>
-                    {% if achievement.date %}
-                    <p class="meta achievement-meta-line">{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+            <article class="card achievement-card certificate-card" data-reveal="bottom">
+                <div class="top"><span class="badge badge-cert">Certificate</span></div>
+                {% if achievement.date %}
+                <p class="meta achievement-meta-line">{{ achievement.date }} ⋅ {{ achievement.location }}</p>
+                {% endif %}
+                <h2>{{ achievement.title }}</h2>
+                <p>{{ achievement.description }}</p>
+                {% if achievement.team %}
+                <p class="meta">Team: {{ achievement.team }}</p>
+                {% endif %}
+                <div class="achievement-actions">
+                    <a class="btn btn-secondary btn-pill achievement-btn" href="{{ url_for('achievement_detail', slug=achievement.slug) }}">View Details</a>
+                    {% if achievement.external_url %}
+                    <a class="btn btn-secondary btn-pill achievement-btn" href="{{ achievement.external_url }}" target="_blank" rel="noopener">Open Link</a>
                     {% endif %}
-                    <h2>{{ achievement.title }}</h2>
-                    <p>{{ achievement.description }}</p>
-                    {% if achievement.team %}
-                    <p class="meta">Team: {{ achievement.team }}</p>
-                    {% endif %}
-                </article>
-            </a>
+                </div>
+            </article>
             {% endfor %}
         </div>
     </section>

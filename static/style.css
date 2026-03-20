@@ -41,6 +41,42 @@ a:active {
   color: #d3d9e6;
 }
 
+/* Subtle desktop side ornaments for wide screens */
+@media (min-width: 1280px) {
+  html::before,
+  html::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    width: clamp(34px, 7.5vw, 120px);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.52;
+  }
+
+  html::before {
+    left: 0;
+    border-right: 1px solid rgba(132, 165, 255, 0.18);
+    background:
+      radial-gradient(260px 480px at -30% 10%, rgba(116, 152, 255, 0.2), transparent 72%),
+      linear-gradient(180deg, rgba(111, 145, 240, 0.11), rgba(111, 145, 240, 0.02) 45%, rgba(111, 145, 240, 0.09));
+  }
+
+  html::after {
+    right: 0;
+    border-left: 1px solid rgba(132, 165, 255, 0.18);
+    background:
+      radial-gradient(260px 480px at 130% 85%, rgba(116, 152, 255, 0.2), transparent 72%),
+      linear-gradient(180deg, rgba(111, 145, 240, 0.09), rgba(111, 145, 240, 0.02) 50%, rgba(111, 145, 240, 0.12));
+  }
+
+  body {
+    position: relative;
+    z-index: 1;
+  }
+}
+
 html.ui-locked :is(.section, .card, .contact-block, .form-section, .fact-card, .mini-card, .experience-card, .achievement-banner, .award-mini, .timeline-card, .chip, .skill-cloud span),
 html.ui-locked :is(.section, .card, .contact-block, .form-section, .fact-card, .mini-card, .experience-card, .achievement-banner, .award-mini, .timeline-card, .chip, .skill-cloud span) *:not(.cursor-blur) {
   pointer-events: none !important;
@@ -635,13 +671,14 @@ main {
 .skill-cloud-panel {
   display: grid;
   gap: 0.75rem;
+  text-align: center;
 }
 
 .skill-cloud {
   display: flex;
   flex-wrap: wrap;
   gap: 0.7rem;
-  justify-content: flex-start;
+  justify-content: center;
 }
 
 .skill-cloud span {
@@ -965,6 +1002,18 @@ footer a:hover {
 .achievement-meta-line {
   margin-top: -0.08rem;
   margin-bottom: 0.38rem;
+}
+
+.achievement-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.achievement-btn {
+  font-size: 0.78rem;
+  padding: 0.48rem 0.82rem;
 }
 
 .winner-card {
