@@ -5,7 +5,7 @@
   var root = document.documentElement;
   var unlockTimer = null;
   var INTERACTION_BUFFER_MS = 0.01;
-  var interactionLockSelectors = ".section, .card, .contact-block, .form-section, .fact-card, .mini-card, .experience-card, .achievement-banner, .award-mini, .timeline-card, .chip, .skill-cloud span";
+  var interactionLockSelectors = ".section, .card:not(.project-item):not(.achievement-card), .contact-block, .form-section, .fact-card, .mini-card, .experience-card, .achievement-banner, .award-mini, .timeline-card, .chip, .skill-cloud span, .skill-cloud-tag, .expandable-block";
 
   function getRevealIntroDurationMs() {
     var revealTargets = document.querySelectorAll(interactionLockSelectors);
@@ -163,7 +163,7 @@
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var REVEAL_TRANSITION_MS = 560;
   var INTERACTION_BUFFER_MS = 0.01;
-  var revealLockSelectors = ".section, .card, .contact-block, .form-section, .fact-card, .mini-card, .experience-card, .achievement-banner, .award-mini, .timeline-card, .chip, .skill-cloud span";
+  var revealLockSelectors = ".section, .card:not(.project-item):not(.achievement-card), .contact-block, .form-section, .fact-card, .mini-card, .experience-card, .achievement-banner, .award-mini, .timeline-card, .chip, .skill-cloud span, .skill-cloud-tag, .expandable-block";
 
   function parseDelayMs(value) {
     if (!value) return 0;
@@ -254,10 +254,8 @@
 // Hero intro choreography (home page)
 (function () {
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var hero = document.querySelector(".hero-flat");
-  if (!hero) return;
 
-  function finishInstantly(items) {
+  function finishInstantly(hero, items) {
     items.forEach(function (item) {
       item.classList.add("intro-in");
     });
@@ -265,6 +263,9 @@
   }
 
   function runHeroIntro() {
+    var hero = document.querySelector(".hero-flat");
+    if (!hero) return;
+
     var introItems = hero.querySelectorAll(".intro-item");
     if (!introItems.length) return;
 
@@ -274,7 +275,7 @@
     });
 
     if (prefersReducedMotion) {
-      finishInstantly(introItems);
+      finishInstantly(hero, introItems);
       return;
     }
 
@@ -392,13 +393,12 @@
 // Pointer-reactive soft highlight on cards and sections
 (function () {
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  var selector = ".section:not(.skill-cloud-panel), .card, .skill-group, .contact-block, .fact-card, .mini-card, .experience-card, .chip, .expandable-block:not(.skill-cloud-tag)";
 
-  var interactiveEls = document.querySelectorAll(
-    ".section, .card, .skill-group, .contact-block, .fact-card, .mini-card, .experience-card, .chip"
-  );
-  if (!interactiveEls.length) return;
+  function bindInteractiveCard(el) {
+    if (!el || el.dataset.chromaBound === "1") return;
+    el.dataset.chromaBound = "1";
 
-  interactiveEls.forEach(function (el) {
     if (prefersReducedMotion) {
       return;
     }
@@ -411,6 +411,8 @@
       var dy = (y - 50) / 50;
       el.style.setProperty("--mx", x + "%");
       el.style.setProperty("--my", y + "%");
+      el.style.setProperty("--mouse-x", event.clientX - rect.left + "px");
+      el.style.setProperty("--mouse-y", event.clientY - rect.top + "px");
       el.style.setProperty("--ry", (dx * 3).toFixed(2) + "deg");
       el.style.setProperty("--rx", (-dy * 3).toFixed(2) + "deg");
     });
@@ -418,10 +420,30 @@
     el.addEventListener("mouseleave", function () {
       el.style.setProperty("--mx", "-20%");
       el.style.setProperty("--my", "-20%");
+      el.style.setProperty("--mouse-x", "50%");
+      el.style.setProperty("--mouse-y", "50%");
       el.style.setProperty("--rx", "0deg");
       el.style.setProperty("--ry", "0deg");
     });
-  });
+  }
+
+  function setupInteractiveCards() {
+    var interactiveEls = document.querySelectorAll(selector);
+    if (!interactiveEls.length) return;
+
+    interactiveEls.forEach(function (el) {
+      bindInteractiveCard(el);
+    });
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupInteractiveCards, { once: true });
+  } else {
+    setupInteractiveCards();
+  }
+
+  // Re-bind for client-side route transitions and bfcache restores.
+  window.addEventListener("pageshow", setupInteractiveCards);
 })();
 
 // Subtle scroll parallax for hero block
@@ -449,8 +471,13 @@
 
 // Animate long paragraphs word-by-word on scroll (About Me)
 (function () {
+  // Keep projects/achievements card pages on card-level animations only.
+  if (document.querySelector(".projects-gallery, .achievement-tracks")) {
+    return;
+  }
+
   var autoAnimateTargets = document.querySelectorAll(
-    ".page-header p, .card p, .card .meta, .contact-block h2, .form-section h2, .achievement-banner"
+    ".page-header p, .card:not(.project-item):not(.achievement-card) p, .card:not(.project-item):not(.achievement-card) .meta, .contact-block h2, .form-section h2, .achievement-banner"
   );
   autoAnimateTargets.forEach(function (el) {
     el.classList.add("long-animate");
@@ -504,30 +531,65 @@
 // Dedicated on-scroll fade-in for achievements and projects cards
 (function () {
   var prefersReducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-  var cards = document.querySelectorAll(".achievement-track .achievement-card, .projects-gallery .project-item");
-  if (!cards.length) return;
+  var observer = null;
+  var revealCount = 0;
 
-  if (prefersReducedMotion) {
-    return;
+  function setupCardsFade() {
+    var cards = document.querySelectorAll(".achievement-track .achievement-card, .projects-gallery .project-item");
+    if (!cards.length || prefersReducedMotion) return;
+
+    if (observer) {
+      observer.disconnect();
+    }
+
+    revealCount = 0;
+
+    cards.forEach(function (card) {
+      card.classList.remove("ach-fade", "in");
+      card.classList.add("ach-fade");
+      card.style.removeProperty("--card-stagger");
+    });
+
+    observer = new IntersectionObserver(
+      function (entries) {
+        var visibleEntries = entries
+          .filter(function (entry) {
+            return entry.isIntersecting;
+          })
+          .sort(function (a, b) {
+            var topDiff = a.boundingClientRect.top - b.boundingClientRect.top;
+            if (Math.abs(topDiff) > 2) return topDiff;
+            return a.boundingClientRect.left - b.boundingClientRect.left;
+          });
+
+        visibleEntries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          var delay = Math.min(revealCount * 40, 400);
+          revealCount += 1;
+          window.setTimeout(function () {
+            entry.target.classList.add("in");
+          }, delay);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.06, rootMargin: "0px 0px 16% 0px" }
+    );
+
+    cards.forEach(function (card) {
+      observer.observe(card);
+    });
   }
 
-  cards.forEach(function (card) {
-    card.classList.remove("ach-fade", "in");
-    card.classList.add("ach-fade");
-  });
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", setupCardsFade, { once: true });
+  } else {
+    setupCardsFade();
+  }
 
-  var observer = new IntersectionObserver(
-    function (entries) {
-      entries.forEach(function (entry) {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add("in");
-        observer.unobserve(entry.target);
-      });
-    },
-    { threshold: 0.2, rootMargin: "0px 0px -6% 0px" }
-  );
-
-  cards.forEach(function (card) {
-    observer.observe(card);
+  // Re-run on client-side route switches and bfcache restores.
+  window.addEventListener("pageshow", function () {
+    window.requestAnimationFrame(function () {
+      setupCardsFade();
+    });
   });
 })();

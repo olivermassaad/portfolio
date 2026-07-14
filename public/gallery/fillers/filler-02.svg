@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1000" viewBox="0 0 1600 1000">
+  <defs>
+    <linearGradient id="bg" x1="100%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#f7f3ed"/>
+      <stop offset="100%" stop-color="#e8e0d4"/>
+    </linearGradient>
+    <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+      <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(92,74,58,0.08)" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="1600" height="1000" fill="url(#bg)"/>
+  <rect width="1600" height="1000" fill="url(#grid)"/>
+  <circle cx="800" cy="500" r="220" fill="rgba(158,179,150,0.18)" stroke="rgba(139,115,85,0.24)" stroke-width="2"/>
+  <text x="800" y="490" fill="#3d3429" font-family="Inter, Arial, sans-serif" font-size="48" font-weight="600" text-anchor="middle">Gallery slot 2</text>
+  <text x="800" y="555" fill="#7a6f61" font-family="Inter, Arial, sans-serif" font-size="26" text-anchor="middle">Coming soon</text>
+</svg>
