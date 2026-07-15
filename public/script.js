@@ -1,5 +1,10 @@
 "use strict";
 
+if ("scrollRestoration" in history) {
+  history.scrollRestoration = "manual";
+}
+window.scrollTo(0, 0);
+
 // Temporarily disable all pointer interactions until initial animations complete.
 (function () {
   var root = document.documentElement;

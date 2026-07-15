@@ -1210,10 +1210,13 @@ footer a:hover {
   letter-spacing: 0.05em;
 }
 
-.badge-winner {
+.badge-winner,
+.gallery-item .badge.badge-winner,
+.card .badge.badge-winner {
   color: #9a7b4f;
-  background: rgba(154, 123, 79, 0.12);
-  border: 1px solid rgba(154, 123, 79, 0.24);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .badge-cert {
@@ -1736,6 +1739,11 @@ footer p { margin: 0 0 0.24rem; }
   object-position: center;
 }
 
+.detail-modal--fit-gallery .detail-gallery-media video,
+.detail-modal--fit-gallery .detail-gallery-image {
+  object-fit: contain;
+}
+
 .detail-gallery-counter,
 .detail-gallery-hint,
 .detail-gallery-empty-text,
@@ -2048,10 +2056,13 @@ textarea:focus {
   background: var(--surface-soft) !important;
 }
 
-.badge-winner {
+.badge-winner,
+.gallery-item .badge.badge-winner,
+.card .badge.badge-winner {
   color: #9a7b4f;
-  background: rgba(154, 123, 79, 0.12);
-  border: 1px solid rgba(154, 123, 79, 0.24);
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .badge-cert {

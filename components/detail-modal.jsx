@@ -44,7 +44,13 @@ export default function DetailModal() {
     <div className="detail-modal-backdrop" onClick={closeDetail} role="presentation">
       <div
         ref={panelRef}
-        className="detail-modal"
+        className={`detail-modal${
+          activeId?.startsWith("award-") ||
+          activeId?.startsWith("volunteer-") ||
+          activeId === "profile-founder"
+            ? " detail-modal--fit-gallery"
+            : ""
+        }`}
         role="dialog"
         aria-modal="true"
         aria-labelledby={titleId}

@@ -166,23 +166,39 @@ export default function HomePage() {
                 <span className="award-mini-title">RadioStan Host & Presenter · </span>
                 <span className="award-mini-meta">Student radio broadcast</span>
               </ExpandableBlock>
+              <ExpandableBlock detailId="volunteer-sports" className="award-mini">
+                <span className="award-mini-title">Soccer & Karate · </span>
+                <span className="award-mini-meta">Former soccer player and karate competitor</span>
+              </ExpandableBlock>
+              <ExpandableBlock detailId="volunteer-rezone" className="award-mini">
+                <span className="award-mini-title">RE:ZONE · </span>
+                <span className="award-mini-meta">Keyboardist for a J-Rock band</span>
+              </ExpandableBlock>
             </div>
           </section>
 
           <section className="section achievements-panel about-section" data-reveal="right">
             <h2>Awards & Certificates</h2>
             <div className="award-mini-grid">
-              <ExpandableBlock detailId="award-conuhacks-x" className="award-mini">
+              <ExpandableBlock detailId="award-aerohacks" className="award-mini">
                 <span className="award-mini-title">McGill AeroHacks · </span>
                 <span className="award-mini-meta">1st Place · 150+ participants</span>
               </ExpandableBlock>
-              <ExpandableBlock detailId="award-athacks" className="award-mini">
+              <ExpandableBlock detailId="award-conuhacks-x" className="award-mini">
                 <span className="award-mini-title">ConUHacks X · </span>
                 <span className="award-mini-meta">2nd Place · 1000+ participants</span>
               </ExpandableBlock>
-              <ExpandableBlock detailId="award-hackdecouverte" className="award-mini">
+              <ExpandableBlock detailId="award-athacks" className="award-mini">
                 <span className="award-mini-title">AtHacks · </span>
                 <span className="award-mini-meta">3rd Place · 400+ participants</span>
+              </ExpandableBlock>
+              <ExpandableBlock detailId="award-hackdecouverte" className="award-mini">
+                <span className="award-mini-title">HackDécouverte · </span>
+                <span className="award-mini-meta">Gemini API · 150+ participants</span>
+              </ExpandableBlock>
+              <ExpandableBlock detailId="award-dialogue" className="award-mini">
+                <span className="award-mini-title">Dialogue 2026 · </span>
+                <span className="award-mini-meta">Award · 200+ participants</span>
               </ExpandableBlock>
             </div>
           </section>
