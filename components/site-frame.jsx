@@ -45,6 +45,57 @@ export default function SiteFrame({ children }) {
                 </Link>
               </li>
             ))}
+            <li className="nav-socials">
+              <div className="nav-socials-row">
+                <a
+                  className="footer-icon-link"
+                  href="https://github.com/olivermassaad"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="GitHub"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.8-.25.8-.57v-2.1c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.75.4-1.24.72-1.53-2.59-.3-5.3-1.3-5.3-5.75 0-1.27.45-2.3 1.18-3.12-.12-.29-.51-1.49.11-3.1 0 0 .97-.31 3.17 1.19a10.9 10.9 0 0 1 5.78 0c2.2-1.5 3.17-1.2 3.17-1.2.63 1.62.23 2.82.12 3.11.73.81 1.18 1.85 1.18 3.12 0 4.47-2.72 5.45-5.31 5.74.42.36.79 1.05.79 2.12v3.13c0 .32.21.68.81.57A11.5 11.5 0 0 0 12 .5z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </a>
+                <a
+                  className="footer-icon-link"
+                  href="https://www.linkedin.com/in/oliver-massaad-9765a0276/"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="LinkedIn"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      d="M4 3.5a2.25 2.25 0 1 0 0 4.5A2.25 2.25 0 0 0 4 3.5zM2 9h4v13H2zM9 9h3.8v1.8h.1c.53-1 1.84-2.1 3.79-2.1 4.05 0 4.8 2.67 4.8 6.14V22h-4v-6.2c0-1.48-.03-3.37-2.05-3.37-2.06 0-2.38 1.6-2.38 3.27V22H9z"
+                      fill="currentColor"
+                    />
+                  </svg>
+                </a>
+                <a
+                  className="footer-icon-link"
+                  href="https://www.instagram.com/oliver_massaad/"
+                  target="_blank"
+                  rel="noopener"
+                  aria-label="Instagram"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <rect x="3.5" y="3.5" width="17" height="17" rx="5" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                    <circle cx="12" cy="12" r="3.8" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                    <circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" />
+                  </svg>
+                </a>
+                <Link className="footer-icon-link" href="/contact" aria-label="Email">
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path d="M4 6h16v12H4z" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                    <path d="M4 7l8 6 8-6" fill="none" stroke="currentColor" strokeWidth="1.8" />
+                  </svg>
+                </Link>
+              </div>
+            </li>
           </ul>
           <div className="nav-actions">
             <ThemeToggle />
