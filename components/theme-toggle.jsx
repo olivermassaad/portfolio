@@ -76,7 +76,7 @@ export default function ThemeToggle() {
     const endRadius = Math.hypot(
       Math.max(x, window.innerWidth - x),
       Math.max(y, window.innerHeight - y),
-    );
+    ) * 1.06;
 
     setAnimating(true);
     root.style.setProperty("--theme-x", `${x}px`);
