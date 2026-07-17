@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import PlantDecor from "./plant-decor";
+import ThemeToggle from "./theme-toggle";
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -36,9 +37,6 @@ export default function SiteFrame({ children }) {
           <Link href="/" className="logo">
             Oliver Massaad
           </Link>
-          <button className="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
-            <span aria-hidden="true">☰</span>
-          </button>
           <ul id="nav-menu">
             {navItems.map((item) => (
               <li key={item.href}>
@@ -48,6 +46,12 @@ export default function SiteFrame({ children }) {
               </li>
             ))}
           </ul>
+          <div className="nav-actions">
+            <ThemeToggle />
+            <button className="nav-toggle" type="button" aria-label="Toggle menu" aria-expanded="false">
+              <span aria-hidden="true">☰</span>
+            </button>
+          </div>
         </nav>
       </header>
       <main>{children}</main>

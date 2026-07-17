@@ -6,15 +6,17 @@ export function generateStaticParams() {
   return achievements.map((item) => ({ slug: item.slug }));
 }
 
-export function generateMetadata({ params }) {
-  const achievement = getAchievementBySlug(params.slug);
+export async function generateMetadata({ params }) {
+  const { slug } = await params;
+  const achievement = getAchievementBySlug(slug);
   return {
     title: `${achievement?.title ?? "Achievement"} - Achievement`,
   };
 }
 
-export default function AchievementDetailPage({ params }) {
-  const achievement = getAchievementBySlug(params.slug);
+export default async function AchievementDetailPage({ params }) {
+  const { slug } = await params;
+  const achievement = getAchievementBySlug(slug);
 
   if (!achievement) {
     notFound();
@@ -56,6 +58,19 @@ export default function AchievementDetailPage({ params }) {
               <li key={item}>{item}</li>
             ))}
           </ul>
+        ) : null}
+
+        {achievement.external_url ? (
+          <p style={{ marginBottom: "1rem" }}>
+            <a
+              className="btn btn-secondary btn-pill achievement-btn"
+              href={achievement.external_url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Open Link
+            </a>
+          </p>
         ) : null}
 
         <Link href="/achievements" className="btn btn-secondary btn-pill">
