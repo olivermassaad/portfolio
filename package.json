@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/olivermassaad/portfolio#readme",
   "dependencies": {
+    "@vercel/analytics": "^2.0.1",
     "next": "^16.2.1",
     "nodemailer": "^8.0.4",
     "ogl": "^1.0.11",

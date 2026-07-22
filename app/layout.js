@@ -2,6 +2,7 @@ import Script from "next/script";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import SiteFrame from "../components/site-frame";
+import { Analytics } from "@vercel/analytics/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -40,6 +41,7 @@ export default function RootLayout({ children }) {
       <body className={inter.className}>
         <SiteFrame>{children}</SiteFrame>
         <Script src="/script.js" strategy="afterInteractive" />
+        <Analytics />
       </body>
     </html>
   );
