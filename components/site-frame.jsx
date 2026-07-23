@@ -49,7 +49,7 @@ export default function SiteFrame({ children }) {
               <div className="nav-socials-row">
                 <a
                   className="footer-icon-link"
-                  href="https://github.com/olivermassaad"
+                  href="https://github.com/olimasad"
                   target="_blank"
                   rel="noopener"
                   aria-label="GitHub"
@@ -109,7 +109,7 @@ export default function SiteFrame({ children }) {
       <footer>
         <p>&copy; 2026 Oliver Massaad</p>
         <div className="footer-links">
-          <a className="footer-icon-link" href="https://github.com/olivermassaad" target="_blank" rel="noopener" aria-label="GitHub">
+          <a className="footer-icon-link" href="https://github.com/olimasad" target="_blank" rel="noopener" aria-label="GitHub">
             <svg viewBox="0 0 24 24" aria-hidden="true">
               <path
                 d="M12 .5a11.5 11.5 0 0 0-3.64 22.4c.58.1.8-.25.8-.57v-2.1c-3.24.7-3.92-1.38-3.92-1.38-.53-1.35-1.28-1.7-1.28-1.7-1.04-.72.08-.7.08-.7 1.15.08 1.75 1.18 1.75 1.18 1.02 1.75 2.68 1.24 3.33.95.1-.75.4-1.24.72-1.53-2.59-.3-5.3-1.3-5.3-5.75 0-1.27.45-2.3 1.18-3.12-.12-.29-.51-1.49.11-3.1 0 0 .97-.31 3.17 1.19a10.9 10.9 0 0 1 5.78 0c2.2-1.5 3.17-1.2 3.17-1.2.63 1.62.23 2.82.12 3.11.73.81 1.18 1.85 1.18 3.12 0 4.47-2.72 5.45-5.31 5.74.42.36.79 1.05.79 2.12v3.13c0 .32.21.68.81.57A11.5 11.5 0 0 0 12 .5z"

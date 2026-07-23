@@ -9,16 +9,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/olivermassaad/portfolio.git"
+    "url": "git+https://github.com/olimasad/portfolio.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/olivermassaad/portfolio/issues"
+    "url": "https://github.com/olimasad/portfolio/issues"
   },
-  "homepage": "https://github.com/olivermassaad/portfolio#readme",
+  "homepage": "https://github.com/olimasad/portfolio#readme",
   "dependencies": {
+    "framer-motion": "^12.42.2",
     "next": "^16.2.1",
     "nodemailer": "^8.0.4",
     "ogl": "^1.0.11",

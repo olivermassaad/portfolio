@@ -47,6 +47,8 @@ export default function DetailModal() {
         className={`detail-modal${
           activeId?.startsWith("award-") ||
           activeId?.startsWith("volunteer-") ||
+          activeId?.startsWith("achievement-") ||
+          activeId?.startsWith("project-") ||
           activeId === "profile-founder"
             ? " detail-modal--fit-gallery"
             : ""

@@ -193,6 +193,7 @@ html.ui-locked :is(.section, .card, .contact-block, .form-section, .fact-card, .
 
 body {
   margin: 0;
+  padding-top: var(--nav-height);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -339,7 +340,6 @@ main label,
 main input,
 main textarea,
 main .meta,
-main .fact-label,
 main .award-mini-meta,
 main .fact-number {
   font-size: 1rem;
@@ -394,8 +394,11 @@ body.cursor-active .cursor-blur {
 }
 
 .nav-wrap {
-  position: sticky;
+  position: fixed;
   top: 0;
+  right: 0;
+  left: 0;
+  width: 100%;
   z-index: 100;
   border-bottom: 1px solid var(--line);
   background: var(--nav-bg);
@@ -619,8 +622,53 @@ main {
   max-width: 80ch;
 }
 
+.staggered-word-rotate {
+  position: relative;
+  display: inline-grid;
+  justify-items: center;
+  align-items: center;
+  line-height: 1.35;
+  vertical-align: top;
+}
+
+/* All phrases share one grid cell → width = longest, height = single line */
+.staggered-word-rotate-sizer {
+  grid-area: 1 / 1;
+  display: grid;
+  justify-items: center;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.staggered-word-rotate-sizer-item {
+  grid-area: 1 / 1;
+  white-space: nowrap;
+}
+
+.staggered-word-rotate-word {
+  grid-area: 1 / 1;
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.staggered-word-rotate-char {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .staggered-word-rotate-char {
+    filter: none !important;
+    transform: none !important;
+    opacity: 1 !important;
+  }
+}
+
 .hero-flat .cta {
-  margin-top: 1.15rem;
+  margin-top: 0.85rem;
   display: flex;
   gap: 0.72rem;
   flex-wrap: wrap;
@@ -837,7 +885,7 @@ main {
 .fact-label {
   display: block;
   margin-top: 0.2rem;
-  font-size: 0.82rem;
+  font-size: 0.85rem;
   color: var(--text-muted);
 }
 
@@ -908,22 +956,23 @@ main {
 
 .experience-head {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 0.5rem;
-  flex-wrap: wrap;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
 }
 
 .experience-head h3 {
   margin: 0;
   font-size: 1.02rem;
+  text-align: center;
 }
 
 .experience-head span {
-  font-size: 0.76rem;
+  order: -1;
+  font-size: 0.74rem;
   color: var(--text-muted);
   background: var(--accent-soft);
-  padding: 0.16rem 0.45rem;
+  padding: 0.2rem 0.5rem;
   border-radius: 999px;
 }
 
@@ -931,6 +980,7 @@ main {
   margin: 0.35rem 0 0.45rem;
   font-size: 0.84rem;
   color: var(--text-muted);
+  text-align: center;
 }
 
 .experience-card ul {
@@ -1187,6 +1237,10 @@ footer a:hover {
   gap: 0.4rem;
 }
 
+.expandable-block.gallery-item {
+  display: flex;
+}
+
 .gallery-head {
   display: flex;
   align-items: center;
@@ -1309,6 +1363,16 @@ footer a:hover {
   text-align: left !important;
   margin-inline: 0 !important;
   justify-content: flex-start !important;
+}
+
+.achievement-track .achievement-card h2 {
+  color: #1c1610;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+}
+
+html[data-theme="dark"] .achievement-track .achievement-card h2 {
+  color: #faf7f2;
 }
 
 .achievement-meta-line {
@@ -1946,6 +2010,31 @@ footer p { margin: 0 0 0.24rem; }
   border: 1px solid var(--line);
   color: var(--text);
   font-size: 0.76rem;
+}
+
+.detail-gallery-sound {
+  position: absolute;
+  z-index: 4;
+  top: 1.05rem;
+  right: 1.05rem;
+  padding: 0.22rem 0.6rem;
+  border-radius: 999px;
+  background: var(--nav-bg);
+  border: 1px solid var(--line);
+  color: var(--text);
+  font-size: 0.74rem;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.detail-gallery-sound:hover {
+  border-color: var(--line-strong);
+}
+
+.detail-gallery-sound:focus-visible {
+  outline: 2px solid var(--accent-green);
+  outline-offset: 2px;
 }
 
 .detail-gallery-hint {

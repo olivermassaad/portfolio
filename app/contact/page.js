@@ -37,12 +37,12 @@ export default async function ContactPage({ searchParams }) {
           </p>
           <p>
             <strong>GitHub</strong>{" "}
-            <a href="https://github.com/olivermassaad" target="_blank" rel="noopener">
-              github.com/olivermassaad
+            <a href="https://github.com/olimasad" target="_blank" rel="noopener">
+              github.com/olimasad
             </a>
           </p>
           <div className="contact-links contact-links-spaced">
-            <a href="https://github.com/olivermassaad" target="_blank" rel="noopener" className="btn btn-secondary">
+            <a href="https://github.com/olimasad" target="_blank" rel="noopener" className="btn btn-secondary">
               GitHub
             </a>
             <a

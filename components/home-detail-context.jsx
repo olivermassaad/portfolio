@@ -43,12 +43,17 @@ export function ExpandableBlock({ detailId, className = "", children, ...props }
     }
   }
 
+  function handleClick(event) {
+    if (event.target.closest("a, button")) return;
+    openDetail(detailId);
+  }
+
   return (
     <div
       className={`expandable-block ${className}`.trim()}
       role="button"
       tabIndex={0}
-      onClick={() => openDetail(detailId)}
+      onClick={handleClick}
       onKeyDown={handleKeyDown}
       aria-haspopup="dialog"
       {...props}

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import DetailModal from "../components/detail-modal";
 import { ExpandableBlock, HomeDetailProvider } from "../components/home-detail-context";
+import StaggeredWordRotate from "../components/staggered-word-rotate";
 
 const skills = [
   "Java",
@@ -29,6 +30,12 @@ const skills = [
   "Git",
 ];
 
+const taglineWords = [
+  "Full-stack web app developer",
+  "Intern @ Morgan Stanley",
+  "5x Hackathon Winner",
+];
+
 export default function HomePage() {
   return (
     <>
@@ -42,9 +49,7 @@ export default function HomePage() {
           Computer Science Student · Dawson College
         </p>
         <p className="tagline intro-item" data-reveal="right">
-          Full-stack web app developer (Python, JavaScript) · Intern @ Morgan Stanley
-          <br />
-          5x Hackathon Winner
+          <StaggeredWordRotate words={taglineWords} />
         </p>
         <div className="cta intro-item" data-reveal="bottom">
           <Link href="/projects" className="btn btn-primary btn-pill">
