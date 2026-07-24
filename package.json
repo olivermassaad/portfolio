@@ -5,6 +5,7 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
+    "optimize:gallery": "node scripts/optimize-gallery.mjs --delete-originals",
     "start": "next start"
   },
   "repository": {
@@ -30,6 +31,7 @@
     "@tailwindcss/postcss": "^4.2.2",
     "autoprefixer": "^10.4.27",
     "postcss": "^8.5.8",
+    "sharp": "^0.35.3",
     "tailwindcss": "^4.2.2"
   }
 }

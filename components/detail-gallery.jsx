@@ -85,7 +85,6 @@ export default function DetailGallery({ items = [] }) {
             alt={current.alt ?? ""}
             fill
             sizes="(max-width: 768px) 92vw, 720px"
-            quality={72}
             className="detail-gallery-image"
             draggable={false}
             priority={index === 0}
